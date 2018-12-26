@@ -15,6 +15,8 @@ router.get('/signup',
 				const error = new Error('Passwords do not match.');
 				error.code = 400;
 				throw error;
+		}else{
+			return true;
 		}
 	})
 ],

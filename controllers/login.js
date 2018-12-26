@@ -1,9 +1,18 @@
 const { validationResult } = require('express-validator/check');
+const jwt = require('jsonwebtoken');
 
 exports.getSignUp = (req, res, next)=> {
-	const errors = validationResult(req);
-	if (errors) {
-		return res.status(400).json({errors : errors.array()});
+
+	const validationErrors = validationResult(req);
+	if (validationErrors.length) {
+		return res.status(400).json({errors : validationErrors.array()});
 	}
-	res.status(200).json({message: "Welcome to signup"});
+	
+	//create the jwt token
+	const token = jwt.sign({ email: req.body.email }, 'pizza', { expiresIn: 3600 });
+
+	res.status(201).json({
+		token,
+		message: "Welcome to signup"
+	});
 };
