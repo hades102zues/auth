@@ -21,11 +21,15 @@ app.use(loginRoutes);
 
 /*-----ERROR HANDLER--------*/
 app.use((error, req, res, next)=> {
-	//check to see if there is an error status and assign a default if not
-	const errorStatus = error.status ? error.status : 500;
-	const message = 'Server encountered an error';
+	console.log('Error handler triggered');
 
-	res.status(errorStatus).json({message});
+	//check to see if there is an error status and assign a default if not
+	const errorStatus = error.code ? error.code : 500;
+
+	//check to see if there is an error message and assign a default if not
+	const errorMessage = error.message ? error.message : 'Server encountered an error';
+
+	res.status(errorStatus).json({message: errorMessage});
 });
 
 /*-----404--------*/
