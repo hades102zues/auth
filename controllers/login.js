@@ -16,3 +16,21 @@ exports.getSignUp = (req, res, next)=> {
 		message: "Welcome to signup"
 	});
 };
+
+
+exports.getLogin = (req, res, next)=> {
+
+	//get the token from header
+	const token = req.get('Authorization').split(' ')[1];
+
+	//verify the token
+	jwt.verify(token, 'pizza', (err, decoded)=> {
+		if (err) {
+			next(err);
+		} 
+		else {
+			res.status(200).json({ message: 'Succesfully Logged In' });
+		}
+	});
+	
+};

@@ -5,7 +5,7 @@ const { body } = require('express-validator/check');
 
 
 router.get('/signup', 
-[
+ [
 	body('email').isEmail().withMessage('Invalid Email'),
 	body('password').isLength({min:5}).withMessage('Password Must be atleast 5 characters long'),
 	body('confirmPassword').custom((confirmPasswordValue, { req })=>{
@@ -19,10 +19,11 @@ router.get('/signup',
 			return true;
 		}
 	})
-],
+ ],
 
  loginControllers.getSignUp
-
 );
+
+router.get('/login', loginControllers.getLogin)
 
 module.exports = router;
